@@ -4,7 +4,7 @@ package P2P;
 public class SearchRequest {
 	
 	private String id, filename;
-	private int[] parts;	
+	private int[] parts; //parts missing
 	private boolean existPeers;
 	
 	public SearchRequest(String id, String filename) {

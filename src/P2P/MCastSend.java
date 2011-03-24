@@ -10,7 +10,7 @@ public class MCastSend {
 
 	private MulticastSocket socket;
 	private DatagramPacket packet;
-	private byte[] buf;
+//	private byte[] buf;
 	private String address;
 	private int mPort;
 	public MCastSend(MulticastSocket socket, String address, int mPort) throws IOException {

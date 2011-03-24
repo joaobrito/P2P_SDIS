@@ -1,6 +1,5 @@
 package P2P;
 import java.io.File;
-import java.io.FilenameFilter;
 
 
 public class FileTransfer {

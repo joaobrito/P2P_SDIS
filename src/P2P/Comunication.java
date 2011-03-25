@@ -2,6 +2,7 @@ package P2P;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.RandomAccessFile;
 import java.net.DatagramPacket;
 import java.net.InetAddress;
 import java.net.MulticastSocket;
@@ -13,18 +14,17 @@ import java.util.concurrent.Semaphore;
 
 public class Comunication {
 	private int mcastPort;
-	private int port;
 	private String mcastAddr;
 	private MulticastSocket mSocket;
-	protected static HashMap<String, SearchRequest> myRequests;
+	private static HashMap<String, SearchRequest> myRequests, requests;
 	private Semaphore semData, semCommand;
-	public Comunication(int mCastPort, String mCastAddress, int port) throws Exception{
-		
+	private HashMap<String, File> toReceive;
+	public Comunication(int mCastPort, String mCastAddress) throws Exception{
+		toReceive = new HashMap<String, File>();
 		this.mcastPort = mCastPort;
-		this.port = port;
-		
 		semData = new Semaphore(1,true);
 		semCommand = new Semaphore(1,true);
+		myRequests = new HashMap<String, SearchRequest>();
 		
 		try {
 			mSocket = new MulticastSocket(mCastPort);
@@ -36,9 +36,8 @@ public class Comunication {
 		
 		Scanner scan = new Scanner(System.in);
 		String command;
-		
-		new receiveCommandThread();
-		
+		receiveCommandThread r = new receiveCommandThread();
+		r.start();
 		do{
 			System.out.print(":> ");
 			command = scan.nextLine();
@@ -56,8 +55,9 @@ public class Comunication {
 			myRequests.put("id" + rndId, new SearchRequest("id" + rndId, command.substring(command.indexOf(" "))));
 			sendCommand(msg);
 		}
-		else if(com[0].toLowerCase().compareTo("get") == 0)
-			;
+		else if(com[0].toLowerCase().compareTo("get") == 0){
+			new sendDataThread(com[1]);
+		}
 		else
 			System.out.println("unknown command: \"" + com[0] + "\"");
 	}
@@ -77,6 +77,7 @@ public class Comunication {
 			e.printStackTrace();
 		}
 		
+		System.out.println("sending: " + new String(packet.getData()));
 		try {
 			mSocket.send(packet);
 		} catch (IOException e1) {
@@ -141,7 +142,6 @@ public class Comunication {
 	class receiveData extends Thread{
 
 		public receiveData() {
-			// TODO Auto-generated constructor stub
 		}
 		
 		public void run() {
@@ -150,17 +150,34 @@ public class Comunication {
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-			//codigo
+			byte[] buf = new byte[1088];
+			
+			DatagramPacket packet = new DatagramPacket(buf, buf.length);
+			try {
+				mSocket.receive(packet);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			semData.release();
+			
+			Chunk c = new Chunk(packet.getData());
+			
 		}
 	}
 	
 	class sendDataThread extends Thread{
-		public sendDataThread() {
+		String idRequest;
+		public sendDataThread(String idRequest) {
+			this.idRequest = idRequest;
 		}
 		
 		public void run() {
-			
+			SearchRequest r = idRequest).getParts().length;
+			while(r.getParts().length != 0){
+				int rnd = new Random().nextInt(r.getParts().length);
+				r = myRequests.get(idRequest);
+			}
 		}
 	}
 	

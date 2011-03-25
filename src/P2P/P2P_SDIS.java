@@ -10,7 +10,7 @@ public class P2P_SDIS extends Thread{
 	private static String mcastAddr;
 	public static void main(String[] args) throws UnknownHostException, IOException {
 		if (args.length != 3){
-			System.out.println("java P2P_SDIS_SERVER <mcast port> <mcastAddress> <port>");
+			System.out.println("java P2P_SDIS_SERVER <mcast port> <mcastAddress>");
 			return;
 		}
 		mcastPort = Integer.parseInt(args[0]);
@@ -18,7 +18,7 @@ public class P2P_SDIS extends Thread{
 		mcastAddr = args[1];
 		
 		try {
-			new Comunication(mcastPort, mcastAddr, port);
+			new Comunication(mcastPort, mcastAddr);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -6,7 +6,6 @@ import java.io.RandomAccessFile;
 public class Chunk {
 	private byte[] send;
 	
-	
 	public Chunk(byte[] id, int number, File file) throws Exception {
 		
 		RandomAccessFile in = new RandomAccessFile(file, "r");
@@ -64,6 +63,16 @@ public class Chunk {
 		for(int i = 0; i< 1024; i++)
 			b[i] = send[i + 64];
 		return b;
+	}
+	
+	public int getSHA(){
+		
+		byte[] num = new byte[32];
+		for(int i = 0; i < 32; i++)
+			num[i] = send[i];
+		int number = byteArrayToInt(num);
+//		System.out.println("Chunk number decode = " + number);
+		return number;
 	}
 	
 	public int getNumber(){

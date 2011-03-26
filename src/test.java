@@ -1,26 +1,23 @@
+import java.util.Vector;
+
 
 public class test extends Thread{
 
 	static int i;
 	
-	public static void test(int i){
-		while (true){
-			System.out.println("test: i = " + i);
-			i++;
-			try {
-				sleep(1000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-	}
 	
 	public static void main(String[] args) {
-		i=2;
-		new testThread(i).start();
-		test(i);
+		Vector<Integer> vec = new Vector<Integer>();
+		vec.add(2);
+		vec.add(6);
+		vec.add(5);
+		
+		System.out.println("Contains 5 = " + vec.contains(5));
+		System.out.println("Contains 7 = " + vec.contains(7));
+		System.out.println("Contains 9 = " + vec.contains(9));
+		
 	}
 
 	
 }
+

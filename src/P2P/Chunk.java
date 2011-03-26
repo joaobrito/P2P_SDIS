@@ -59,8 +59,11 @@ public class Chunk {
                 (byte)value};
 	}
 	
-	public String getData(){
-		return new String(send, 64, 1024);
+	public byte[] getData(){
+		byte[] b = new byte[1024];
+		for(int i = 0; i< 1024; i++)
+			b[i] = send[i + 64];
+		return b;
 	}
 	
 	public int getNumber(){
@@ -69,7 +72,7 @@ public class Chunk {
 		for(int i = 32; i < 64; i++)
 			num[i - 32] = send[i];
 		int number = byteArrayToInt(num);
-		System.out.println("Chunk number decode = " + number);
+//		System.out.println("Chunk number decode = " + number);
 		return number;
 	}
 

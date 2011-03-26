@@ -1,16 +1,17 @@
 package P2P;
 
+import java.util.Vector;
+
 
 public class SearchRequest {
 	
 	private String id, filename;
-	private int[] parts; //parts missing
-	private boolean existPeers;
+	private Vector<Integer> parts; //parts missing
+	private int size;
 	
 	public SearchRequest(String id, String filename) {
 		this.filename = filename;
 		this.id = id;
-		this.setExistPeers(false);
 	}
 	
 	public SearchRequest(String id, String filename, int[] parts) {
@@ -18,29 +19,38 @@ public class SearchRequest {
 		this.id = id;
 	}
 	
-	public void setExistPeers(boolean hasPeers) {
-		this.existPeers = hasPeers;
-	}
-
-	public boolean existPeers() {
-		return existPeers;
+	public SearchRequest(String message){
+		
 	}
 	
 	public String getId() {
 		return id;
+	}
+	
+	public void setId(String id){
+		this.id = id;
 	}
 
 	public String getFilename() {
 		return filename;
 	}
 
-	public void setParts(int[] parts) {
+	public void setParts(Vector<Integer> parts) {
 		this.parts = parts;
 	}
 
-	public int[] getParts() {
+	public Vector<Integer> getParts() {
 		return parts;
 	}
+
+	public int getSize() {
+		return size;
+	}
+
+	public void setSize(int size) {
+		this.size = size;
+	}
+	
 	
 	
 }

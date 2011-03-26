@@ -20,10 +20,8 @@ public class FileTransfer {
 		
 		for(File f: dir.listFiles()){
 			if((f.getName()).compareTo(fileName.trim()) == 0){
-//				System.out.println("Ficheiro encontrado");
 				return f; 
 			}
-//			System.out.println(f.getName() + " = " + fileName + "\t=> " + (f.getName()).compareTo(fileName));
 			
 		}
 		return null;
